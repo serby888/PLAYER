@@ -1,0 +1,69 @@
+/*= GENERAL STYLES
+--------------------------------------------------------*/
+
+th {
+    font-size: 18px;
+    padding: 6px;
+}
+
+td {
+    padding: 10px;
+}
+
+#parent_popup {
+  background: #000;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  top: 0;
+  left: 0;
+
+}
+#popup { 
+    background-color: #fff; 
+    position: relative; 
+    margin: auto; 
+    height: 65px; 
+    top: 230px; 
+    padding: 40px; 
+    color: #000; 
+    width: 500px; 
+    text-align: left; 
+}
+
+
+
+#rectangle1 {
+    position: absolute;
+    right: 10px;
+    width: 20%;
+    height: 7%;
+    background: #F5F2F7;
+    border-radius: 15px;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,.13);
+    padding: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+}
+    
+
+
+.button {
+  font-size: 15px;
+  color: #fff; /* цвет текста */
+  text-decoration: none; /* убирать подчёркивание у ссылок */
+  user-select: none; /* убирать выделение текста */
+  background: rgb(215, 143, 81); /* фон кнопки */
+  padding: .7em 1.5em; /* отступ от текста */
+  border: 0; /* убирать контур в Mozilla */
+  padding: 8px 30px;
+  float: right;
+} 
+
+.button:hover { background: rgb(195,123,71); } /* при наведении курсора мышки */
+.button:active { background: rgb(125,53,1); } /* при нажатии */
+
