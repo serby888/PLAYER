@@ -35,15 +35,17 @@
       </li>
     </ul>
 
-    <form class="navbar-form navbar-left">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Поиск">
-      </div>
-     <button class="btn btn-default" type="submit">
-        <i class="glyphicon glyphicon-search"></i>
-      </button>
-    </form>
-  </div>
+    <form class="navbar-form">
+		<div class="col-lg-6">
+		    <div class="input-group">
+		      <input type="text" class="form-control" placeholder="Search for...">
+		      <span class="input-group-btn">
+		        <button class="btn btn-default" type="button">Go!</button>
+		      </span>
+		    </div>
+		  </div>
+		</form>
+
 </nav> 
 <?php
 
