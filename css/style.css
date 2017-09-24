@@ -33,5 +33,10 @@ audio {
 
 table {
   text-align:  center;
-
+}
+th {
+  text-align:  center;
+}
+body {
+  padding-top: 50px; 
 }
