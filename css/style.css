@@ -31,12 +31,11 @@ audio {
   border-radius: 4px;
 }
 
-table {
-  text-align:  center;
-}
 th {
   text-align:  center;
+  font-size: 15px;
 }
-body {
-  padding-top: 50px; 
+
+.glyphicon{
+  font-size: 21px;
 }
