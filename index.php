@@ -80,37 +80,6 @@ function Player()
 
 		
 		return $path[0].'new.wav';
-	  		/*echo '<div id="parent_popup">
-	          		<div id="popup">
-  					  <div class="panel panel-default">
-    				    <div class="panel-heading">'."Воспроизводится: <b>",$fpath.'<b></div>
-    					<div class="panel-body">
-    					  <form action = "index.php?delete='.$path[0].'" method = "post">
-	                		<p> <input  class="btn btn-default button" type="submit" name="close" value="Закрыть"></p>
-	                		  <p> 
-	                		  	<audio controls autoplay>
-						 	  	  <source src="'.$path[0].'new.wav" type="audio/wav">
-						 	  		Если вы видите это, значит ваш браузер не
-						 	  		поддерживает теги HTML5 аудио.
-								</audio>
-							  </p>
-	                	  </form>
-    					</div>
-  					  </div>
-					</div>
-				  </div>';
-				  echo '    
-				  <nav class="navbar navbar-default navbar-fixed-top">
-				    <div class="container-fluid">
-				  <div class="navbar-form navbar-right">
-    							<audio controls autoplay>
-						 	  	  <source src="'.$path[0].'new.wav" type="audio/wav">
-						 	  		Если вы видите это, значит ваш браузер не
-						 	  		поддерживает теги HTML5 аудио.
-								</audio>    	
-								</div>	
-    </div>
-    </nav>';*/
 
 	}
 }
@@ -130,21 +99,10 @@ function Files($dir)
 
 				if (strlen($number) == 12)
 				{
-					$number1 = substr($number, -7, 3);
-					$number2 = substr($number, -4, 2);
-					$number3 = substr($number, -2);
+					$number1 = substr($number, -7);
 					$code = substr($number, -9, 2);
-					$number = "+ 375 (".$code.") ".$number1."-".$number2."-".$number3;
+					$number = "+375(".$code.")".$number1;
 					
-				}
-
-				if (strlen($number) == 6)
-				{
-					$number1 = substr($number, -6, 2);
-					$number2 = substr($number, -4, 2);
-					$number3 = substr($number, -2);
-					$number = $number1."-".$number2."-".$number3;
-
 				}
 
         		echo "<td>$number</td>"; 
