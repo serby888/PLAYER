@@ -11396,7 +11396,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
+			"sEmptyTable": "Введите поисковой запрос",
 	
 	
 			/**

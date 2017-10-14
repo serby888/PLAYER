@@ -19,27 +19,40 @@
 
 <script>
 $(document).ready(function() {
-    var table = $('#mytable').DataTable( {
 
-        aoColumnDefs: [{orderable: false, aTargets : [2]}], 
-        "order": [0, 'desc'], 
-        "paging":   false,        
-        "info":     false
+	        
+	var table = $('#mytable').DataTable( {
 
+    aoColumnDefs: [{orderable: false, aTargets : [2]}], 
+    "order": [0, 'desc'], 
+    "paging":   false,        
+    "info":     false,
+    "sDom": '<"top"i>rt<"bottom"lp><"clear">'
     } );
 
-	$('#myInput').on( 'keyup', function () {
-	    table
-	        .search( this.value )
-	        .draw();
-	} );
+
+		$('#myInput').on( 'keyup', function () {
+
+			document.getElementById("enter").onsubmit=
+		 	function() {
+		  		window.location.href = "index.php?search=" + this.mytext.value;
+		  		return false;
+		 	}
+
+			$('#myInput').on( 'keyup', function () {
+				table
+			.search(this.value)
+			.draw();
+			});
+		} );
 } );
+
 
 </script>
 
 <?php
 
-		session_start();
+session_start();
 
     if (isset($_SESSION['pl']) AND $_SESSION['del'] == true)	
 	{
@@ -47,7 +60,8 @@ $(document).ready(function() {
 	}
 date_default_timezone_set('Europe/Minsk');
 
-echo '<table id="mytable" class="table table-hover table-bordered table-row text-center ">
+
+	echo '<table id="mytable" class="table table-hover table-bordered table-row text-center">
 		<thead>
                      <tr>
                      <th>Дата звонка</th>
@@ -56,15 +70,17 @@ echo '<table id="mytable" class="table table-hover table-bordered table-row text
                      </tr>
                      </thead>';
 
-Files('*.WAV');
-Files('*/*.WAV');
-Files('*/*/*.WAV');
-Files('*/*/*/*.WAV');
+    if(isset($_GET['search']))
+    {
+    	Files('*.WAV');
+		Files('*/*.WAV');
+		Files('*/*/*.WAV');
+		Files('*/*/*/*.WAV');	
+    }
 
-echo "</table>"; 
+	echo "</table>"; 
 
-$play = Player();
-
+	$play = Player();
 
 function Player()
 {
@@ -72,13 +88,12 @@ function Player()
 	{
 
 		$fpath = $_GET['play'];
-		$path = explode(".", $_GET['play']);
+		$path = substr($fpath, 0, -4);
+
 		$pathes = "$fpath $path[0]";
-		 
+
 		exec('E:\Programs\XAMPP\htdocs\ffmpeg-20170918-18821e3-win64-static\bin\ffmpeg.exe -i '.$pathes.'new.wav');
 
-
-		
 		return $path[0].'new.wav';
 
 	}
@@ -88,27 +103,29 @@ function Files($dir)
 {
 	foreach (glob($dir) as $filename) 
 	{
-	$path = $filename;
-	$filename = end(explode('/', $filename));
+		$path = $filename;
+		$filename = end(explode('/', $filename));
 
-	echo "<tr>";
-    		$datetime = ConvDate($filename);
-        	echo "<td>$datetime</td>"; 
+		if(stristr($filename, $_GET['search']) == true)
+		{
 
-				$number = strtok(".");
+			echo "<tr>";
+	    	$datetime = ConvDate($filename);
+	        echo "<td>$datetime</td>"; 
 
-				if (strlen($number) == 12)
-				{
-					$number1 = substr($number, -7);
-					$code = substr($number, -9, 2);
-					$number = "+375(".$code.")".$number1;
-					
-				}
+			$number = strtok(".");
 
-        		echo "<td>$number</td>"; 
-        		
-    echo "<td><a href='index.php?play=".$path."'><span class='glyphicon glyphicon-play'></span></a></td>
-    </tr>";
+			if (strlen($number) == 12)
+			{
+				$number1 = substr($number, -7);
+				$code = substr($number, -9, 2);
+				$number = "+375(".$code.")".$number1;
+			}
+	   		echo "<td>$number</td>"; 
+	        		
+	    	echo "<td><a href='index.php?play=".$path."'><span class='glyphicon glyphicon-play'></span></a></td>
+	    	</tr>";
+		}
 	} 
 }
 
@@ -122,9 +139,6 @@ function ConvDate($name)
 
 	return $datetime;
 }
-
-
-
 ?>
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -134,7 +148,6 @@ function ConvDate($name)
     </div>
 
     <ul class="nav navbar-nav">
-
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Отобразить
         <span class="caret"></span></a>
@@ -146,10 +159,10 @@ function ConvDate($name)
       </li>
     </ul>
 
-
-    <form class="navbar-form navbar-left">
+    <form name="form1" class="navbar-form navbar-left" id="enter" method="POST">
       <div class="form-group">
-        <input id="myInput" type="text" class="form-control" placeholder="Поиск">
+        <input id="myInput" name="mytext" type="text" class="form-control" placeholder="Поиск">
+        
       </div>
     </form>
 
@@ -159,23 +172,15 @@ function ConvDate($name)
 						 	  	  <source src="<?php echo $play ?>" type="audio/wav">
 						 	  		Если вы видите это, значит ваш браузер не
 						 	  		поддерживает теги HTML5 аудио.
-
-
 		</audio>    		
     </div>
-
-
-
 </div>
 </nav> 
-
-
-
 
 </body>
 </html>
 
 <?php
-$_SESSION['del'] = true;
-$_SESSION['pl'] = $play;
+	$_SESSION['del'] = true;
+	$_SESSION['pl'] = $play;
 ?>
